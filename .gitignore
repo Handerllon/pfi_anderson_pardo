@@ -1,6 +1,6 @@
 # Custom
 *.csv
-*.json
+*properties.json
 *.zip
 *.agz
 *.xlsx

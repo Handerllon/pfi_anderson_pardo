@@ -1,0 +1,13 @@
+{
+    "caracteristicas": ["balcony", "yard", "rooftop", "garage"],
+    "amenities": ["sum", "amoblado", "cancha_paddle", "cancha_tenis", "gimnasio", "hidromasaje", "laundry", "microcine", "parrilla", "piscina", "sala_de_juegos", "sauna", "solarium", "spa", "estacionamiento_visitas", "centros_comerciales_cercanos", "parques_cercanos", "escuelas_cercanas"],
+    "lat": -30,
+    "lon": -30,
+    "antiguedad": 30,
+    "ambientes": 2,
+    "cuartos": 1,
+    "banos": 1,
+    "superficie_total": 57,
+    "barrio": "Abasto",
+    "localidad": "Buenos Aires"
+    }
