@@ -89,8 +89,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 df_similarity = pd.read_csv("source.csv")
 df_similarity.drop(["Unnamed: 0"], axis=1, inplace=True)
-df_similarity = df_similarity.loc[df_similarity.price > 100]
-df_similarity = df_similarity.loc[df_similarity.surface_total < 400]
+#df_similarity = df_similarity.loc[df_similarity.price > 100]
+#df_similarity = df_similarity.loc[df_similarity.surface_total < 400]
 
 new_row = df.to_dict("records")[0]
 new_row["price"] = prediction[0]
