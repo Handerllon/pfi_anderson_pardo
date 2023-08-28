@@ -1,5 +1,5 @@
 # Custom
-*.csv
+Price/Output/*.csv
 *properties.json
 *.zip
 *.agz
