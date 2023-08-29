@@ -1,7 +1,10 @@
 import pandas as pd
 from joblib import load
+import os
 import sys
 import json
+
+PATH = os.path.dirname(os.path.abspath(__file__))
 
 # Vamos a esperar que la información nos llegue en formato JSON para la predicción
 data_file = sys.argv[1]
@@ -17,7 +20,7 @@ dict_df = dict()
 
 ### Barrios ###
 # Rellenamos todos los posibles barrios
-with open("Input/barrios.json") as json_file:
+with open(str(PATH) + "/Input/barrios.json") as json_file:
     barrios = json.load(json_file)
 
 # Generamos columnas para cada uno de los barrios
@@ -70,7 +73,7 @@ for am in data_json["amenities"]:
 # ---------------------------------- Utilización del modelo --------------------------------------- 
 
 # Cargamos el modelo para ser utilizado
-model = load('Models/gboost_model6.joblib')
+model = load(str(PATH) + '/Models/gboost_model6.joblib')
 
 # Pasamos el diccionario a un dataframe para ser utilizado
 df = pd.DataFrame({k: [v] for k, v in dict_df.items()})
@@ -80,14 +83,13 @@ df = df[['characteristincs_balcony', 'characteristincs_yard', 'characteristincs_
 
 prediction = model.predict(df)
 
-print("Resultado Prediccion: ")
-print(prediction)
+print(prediction[0])
 
 # ---------------------------------- Busqueda de similares ---------------------------------------
 
 from sklearn.metrics.pairwise import cosine_similarity
 
-df_similarity = pd.read_csv("source.csv")
+df_similarity = pd.read_csv(str(PATH) + "/source.csv")
 df_similarity.drop(["Unnamed: 0"], axis=1, inplace=True)
 #df_similarity = df_similarity.loc[df_similarity.price > 100]
 #df_similarity = df_similarity.loc[df_similarity.surface_total < 400]
@@ -103,4 +105,4 @@ import time
 timestr = time.strftime("%Y%m%d-%H%M%S")
 
 #top_rows = df_similarity.head(3).to_dict("records")
-df_similarity.head(3).to_csv("Output/similar_properties-"+timestr+".csv")
+df_similarity.head(3).to_csv(str(PATH) + "/Output/similar_properties-"+timestr+".csv")
