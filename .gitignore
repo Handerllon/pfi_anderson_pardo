@@ -1,9 +1,14 @@
 # Custom
+*.json
 Price/Output/*.csv
 *properties.json
 *.zip
 *.agz
 *.xlsx
+
+!**/barrios_meli.json
+!**/barrios.json
+!**/model_test.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
