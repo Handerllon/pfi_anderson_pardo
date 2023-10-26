@@ -83,26 +83,8 @@ df = df[['characteristincs_balcony', 'characteristincs_yard', 'characteristincs_
 
 prediction = model.predict(df)
 
-print(prediction[0])
+import requests
+res = requests.get("https://dolarapi.com/v1/dolares/blue")
+dolar_blue = res.json()["compra"]
 
-# ---------------------------------- Busqueda de similares ---------------------------------------
-
-from sklearn.metrics.pairwise import cosine_similarity
-
-df_similarity = pd.read_csv(str(PATH) + "/Exploration/cabaprop_source.csv")
-df_similarity.drop(["Unnamed: 0"], axis=1, inplace=True)
-#df_similarity = df_similarity.loc[df_similarity.price > 100]
-#df_similarity = df_similarity.loc[df_similarity.surface_total < 400]
-
-new_row = df.to_dict("records")[0]
-new_row["price"] = prediction[0]
-
-similarity_scores = cosine_similarity(df_similarity.values, [list(new_row.values())])
-df_similarity['Similarity'] = similarity_scores
-df_similarity = df_similarity.sort_values(by='Similarity', ascending=False)
-
-import time
-timestr = time.strftime("%Y%m%d-%H%M%S")
-
-#top_rows = df_similarity.head(3).to_dict("records")
-df_similarity.head(3).to_csv(str(PATH) + "/Output/similar_properties-"+timestr+".csv")
+print(prediction[0]*dolar_blue)
