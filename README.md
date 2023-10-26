@@ -1,38 +1,37 @@
-# Proyecto Final de Ingeniería - Anderson & Pardo
 
-En la carpeta `price` podemos encontrar los trabajos realizados relacionados a la predicción de precio de alquiler.  
+# Valorar.ar - Exploration
 
-- `exploration.ipynb` contiene lo que podría llamarse el ETL. Este notebook realiza la conexión a la base de datos y genera un archivo en limpio que será utilizado para las predicciones
-- `machine_learning.ipynb` contiene las distintas pruebas de los modelos de machine learning que se fueron utilizando para las predicciones
-- `Models` contiene el modelo entrenado en formato de archivo
-- `predictor.py` es el archivo que se utilizará para generar predicciones a partir de nueva información
+Repositorio de pruebas para la solución Valorar.ar. Contiene tanto trabajos de análisis exploratorio como modelado de machine learning
 
-## Forma de utilización
+### Requerimientos
 
-Instalar primero los requerimientos presentes en `requirements.txt`
+- Python 3.10 +
 
-```
-python3 predictor.py <PATH_A_JSON_A_PREDECIR>
-```
+### Instalación
+Antes de comenzar con la instalación, se deben configurar las variables de entorno a ser utilizadas por la aplicación. Crear una copia del archivo `.env_example` y llamarla `.env`. Completar el archivo con la información requerida.
 
-El archivo json a predecir debe tener el siguiente formato
+Realizar la instalación de las librerias con el siguiente comando:  
+`pip install -r requirements.txt`  
 
-```
-{
-    "caracteristicas": ["balcony", "yard", "rooftop", "garage"],
-    "amenities": ["sum", "amoblado", "cancha_paddle", "cancha_tenis", "gimnasio", "hidromasaje", "laundry", "microcine", "parrilla", "piscina", "sala_de_juegos", "sauna", "solarium", "spa", "estacionamiento_visitas", "centros_comerciales_cercanos", "parques_cercanos", "escuelas_cercanas"],
-    "lat": -30,
-    "lon": -30,
-    "antiguedad": 30,
-    "ambientes": 2,
-    "cuartos": 1,
-    "banos": 1,
-    "superficie_total": 57,
-    "barrio": "Abasto",
-    "localidad": "Buenos Aires"
-    }
-```
+### Guía de Repositorio
+El repositorio se encuentra dividido en dos carpetas principales, **Price** y **Sentiment**.
 
-Notar que `caracteristicas` y `amenities` son listas con las características y amenities del inmueble. Estas deben ser algunas de las que estan en la lista. El resto de la información puede interpretarse por el nombre.
+#### Price
+Aquí se podran encontrar los distintos trabajos realizados en relación a la estimación de precio de alquiler. 
 
-Una vez ejecutado, el script ejecutará la prediccion utilizando el modelo y devolverá el resultado en dolares.
+Dentro de la carpeta *Exploration* se podrán encontrar los distintos notebooks que fueron utilizados tanto para realizar un análisis de datos sobre la informacion como para las tareas de normalización.
+
+A partir de estos, se generaron los llamados *Processors* que son versiones cortas del proceso de normalización, utilizado como forma de ETL.
+
+Tenemos también el archivo `machine_learning.ipynb`. Aquí se realizaron las distintas pruebas de los modelos de machine learning a ser utilizados en la solución. En este archivo se podrán encontrar los modelos finales utilizados y los distintos parámetros utilizados para las tareas de búsqueda de hiperparámetros o *grid search*
+
+El archivo `best_model.ipynb` contiene el modelo que mejor performa hasta la fecha.
+
+Por último, se encuentra el archivo `predictor.py`, el cual genera una estimación de precio de renta a partir de nueva información, utilizando el mejor modelo generado a partir de las tareas de machine learning.
+
+#### Sentiment
+Aquí se podrán encontrar las tareas tanto de recolección de notas periodisticas como el "cálculo" de opinion.
+
+El archivo principal es `sentiment_processor.py`. Este archivo se encarga de realizar tareas de scrapping de los diarios Clarín, Página 12, La Nación, Ámbito Financiero e Infobae en busca de noticias relacionadas al mercado inmobiliario.
+
+Una vez que se recoleccionan las noticias, se analiza la opinion de la misma para luego dejar la información en la base de datos.
